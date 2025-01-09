@@ -25,6 +25,7 @@ const register =async(req,res)=>{
         
 
         const token = jwt.sign({
+            uid:newUser.uid,
             email: newUser.email,
             role_id: newUser.role_id
             
@@ -59,6 +60,7 @@ const login =async(req,res)=>{
             return res.status(400).json({ok:false, msg:'Credenciales invalidas'})
         }
         const token = jwt.sign({
+            uid:user.uid,
             email: user.email,
             role_id: user.role_id
         },

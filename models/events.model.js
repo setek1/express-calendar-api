@@ -1,3 +1,4 @@
+import { text } from "express";
 import { db } from "../database/connection.database.js";
 
 
@@ -20,8 +21,33 @@ const create =async({class_type, start_time,end_time, tea_id, client_id})=>{
     return rows[0]
 }
 
+const findEvent=async(start_time, end_time)=>{
+    const query ={
+        text:`
+        SELECT 1 FROM EVENTS WHERE (start_time,end_time) OVERLAPS($1, $2) LIMIT 1
+        `,
+        values:[start_time,end_time]
+    }
+    const{rows}= await db.query(query)
+    return rows.length>0;
+}
+
+const myEvent= async(id)=>{
+    const query={
+        text:`
+        select * from events where tea_id=$1 or client_id=$1
+        `,
+        values:[id]
+    }
+    const {rows}= await db.query(query)
+    return rows
+
+}
+
 export const eventsModel={
-    create
+    create,
+    findEvent,
+    myEvent
 
 }
 

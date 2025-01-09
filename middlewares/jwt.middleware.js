@@ -7,7 +7,8 @@ export const verifyToken=(req, res, next)=>{
     }
     token = token.split(" ")[1]
     try {
-        const {email, role_id}=jwt.verify(token, process.env.JWT_SECRET);
+        const {uid,email, role_id}=jwt.verify(token, process.env.JWT_SECRET);
+        req.uid=uid
         req.email=email
         req.role_id=role_id
         next()
@@ -18,7 +19,7 @@ export const verifyToken=(req, res, next)=>{
     
 }
 export const verifyAdmin =(req, res, next)=>{
-    console.log(req.role_id)
+    
     if(req.role_id ===1){
         return next()
     }
