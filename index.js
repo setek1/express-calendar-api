@@ -3,6 +3,7 @@ import 'dotenv/config'
 import userRouter from './routes/user.route.js'
 import eventsRouter from './routes/events.route.js'
 import instructorRouter from './routes/instructor.route.js'
+import adminRouter from './routes/admin.route.js'
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json())
 app.use('/api/v1/users',userRouter)
 app.use('/api/v1/eventos',eventsRouter)
 app.use('/api/v1/instructor',instructorRouter)
+app.use('/api/v1/admin',adminRouter)
 app.use(express.urlencoded({extended:true}))
 
 
